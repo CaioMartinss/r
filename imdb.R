@@ -57,6 +57,7 @@ print(resultado)
 # Desconectar do banco de dados
 dbDisconnect(conexao)
 #-------------------------------------------------------------------------
+library(RMySQL)
 source("database_imdb.R")
 conexao <- dbConnect(MySQL(), 
                      user = user_imdb , 
@@ -74,17 +75,6 @@ print(resultado_imdb)
 dbDisconnect(conexao)
 
 
-user_imdb = "root"
-password_imdb = "root" 
-dbname_imdb = "imdb"
-host_imdb = "localhost"
-
-
-# database_config.R
-user_carometro <- "root"
-password_carometro <- "root"
-dbname_carometro <- "dbcarometro"
-host_carometro <- "localhost"
 
 
 
