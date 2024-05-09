@@ -4,5 +4,5 @@
 .Ruserdata
 
 
-.database_carometro.R
-.database_imdb.R
+.database_carometro
+.database_imdb
