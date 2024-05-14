@@ -4,7 +4,7 @@ spec(imdb_cvs)
 
 imdb_cvs
 
-imdb_cvs2 <-read_csv2("imdb.csv", sheet="")
+imdb_cvs2 <- read_csv2("imdb.csv", sheet="")
 
 imdb_xlsx <- read_excel("imdb.xlsx")
 
@@ -41,11 +41,19 @@ library(RMySQL)
 source("database_carometro.R")
 
 # Conectar ao banco de dados MySQL
-conexao <- dbConnect(MySQL(), 
-                     user = user_carometro, 
-                     password = password_carometro, 
-                     dbname = dbname_carometro,
-                     host = host_carometro )
+tryCatch({
+  conexao <- dbConnect(MySQL(), 
+                       user = user_carometro, 
+                       password = password_carometro, 
+                       dbname = dbname_carometro,
+                       host = host_carometro )
+}, error = function(e) {
+  mensagem_de_erro <- paste("Ocorreu um erro durante a conexão ao banco de dados:", e$message)
+  # Faça o que quiser com a mensagem de erro, como imprimir na tela ou registrar em um arquivo de log
+  print(mensagem_de_erro)
+  # Ou apenas retorne NULL ou qualquer outro valor indicando que a conexão falhou
+  conexao <- NULL
+})
 
 # Exemplo de consulta
 resultado <- dbGetQuery(conexao, "select * from alunos;")
@@ -66,7 +74,7 @@ conexao <- dbConnect(MySQL(),
                      host = host_imdb)
 
 # Exemplo de consulta
-resultado_imdb <- dbGetQuery(conexao, "select * from filmes where id = 1");
+resultado_imdb <- dbGetQuery(conexao, "select * from filmes");
 
 # Exibir o resultado
 print(resultado_imdb)
@@ -74,10 +82,7 @@ print(resultado_imdb)
 # Desconectar do banco de dados
 dbDisconnect(conexao)
 
-
-
-
-
+#------------------------------------------------------------
 
 
 
