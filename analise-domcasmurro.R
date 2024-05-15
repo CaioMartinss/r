@@ -1,3 +1,9 @@
+library(syuzhet)
+library(RColorBrewer)
+library(wordcloud)
+library(tm)
+library(wordcloud)
+
 texto <- scan(file =  "https://raw.githubusercontent.com/programminghistorian/jekyll/gh-pages/assets/domCasmurro.txt",fileEncoding = "UTF-8", what = "character", sep = "\n", allowEscapes = T)
 
 texto_palavras <- get_tokens(texto)
@@ -63,7 +69,7 @@ head(nuvem_tdm)
 colnames(nuvem_tdm) <- c('tristeza', 'felicidade', 'raiva', 'confiança')
 head(nuvem_tdm)
 
-set.seed(757) # pode ser qualquer número
+set.seed(600)
 comparison.cloud(nuvem_tdm, random.order = FALSE,
                  colors = c("green", "red", "orange", "blue"),
                  title.size = 1, max.words = 50, scale = c(2.5, 1), rot.per = 0.4)
@@ -73,12 +79,15 @@ sentimentos_valencia <- (sentimentos_df$negative * -1) + sentimentos_df$positive
 
 simple_plot(sentimentos_valencia)
 
+write.csv(sentimentos_df, file = "analise_sent_domCasmurro.csv", row.names = texto_palavras)
+
 
 #salvar em txt
 write.table(sentimentos_df, "sentimentos_df.txt", sep = "\t", row.names = FALSE)
 
 #salvar em csv
 write.csv(sentimentos_df, "sentimentos_df.csv", row.names = FALSE)
+
 
 #abrir o arquivo
 read.table("sentimentos_df.txt", sep = "\t", header = TRUE)
