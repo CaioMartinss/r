@@ -4,7 +4,7 @@ library(wordcloud)
 library(tm)
 library(wordcloud)
 
-texto <- scan(file =  "https://raw.githubusercontent.com/programminghistorian/jekyll/gh-pages/assets/domCasmurro.txt",fileEncoding = "UTF-8", what = "character", sep = "\n", allowEscapes = T)
+texto <- readLines("texto1.txt")
 
 texto_palavras <- get_tokens(texto)
 length(texto_palavras)
@@ -33,7 +33,6 @@ barplot(
   main = "'Dom Casmurro' de Machado de Assis",
   sub = "Análise realizada por Diana Rebelo Rodriguez",
   xlab="emoções", ylab = NULL)
-
 
 barplot(colSums(prop.table(sentimentos_df[, 1:8])))
 
@@ -91,6 +90,23 @@ write.csv(sentimentos_df, "sentimentos_df.csv", row.names = FALSE)
 
 #abrir o arquivo
 read.table("sentimentos_df.txt", sep = "\t", header = TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
